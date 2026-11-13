@@ -49,6 +49,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-
 .content > * { max-width: 700px; }
 .kicker { color: var(--accent); font-size: 13px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 6px; }
 h1 { font: 700 36px/1.2 var(--serif); margin: 0; letter-spacing: -.01em; text-wrap: balance; }
+.hook { font: italic 400 21px/1.5 var(--serif); color: var(--muted); margin: 12px 0 0; max-width: 620px; text-wrap: pretty; }
 .rule { border: 0; border-top: 1px solid var(--rule); margin: 22px 0 30px; }
 .lead { font: 400 21px/1.6 var(--serif); margin: 0 0 20px; }
 h2 {
