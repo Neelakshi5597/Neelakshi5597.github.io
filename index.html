@@ -8,313 +8,64 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root {
-  /* Layout: fixed left profile column + one reading column of dated, ruled entries, like an academic CV */
-  --bg: #fbfafa;
-  --surface: #ffffff;
-  --ink: #1f1a1b;
-  --muted: #645b5d;
-  --rule: #e6dfe0;
-  --accent: #7a1424;
-  --accent-soft: #f5e9eb;
-  --display: "Source Serif 4", "Times New Roman", Georgia, serif;
-  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
-  color-scheme: light;
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #161314; --surface: #1e1a1b; --ink: #ece6e7; --muted: #a99fa1;
-    --rule: #342d2f; --accent: #e08a97; --accent-soft: #2c1f22; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #161314; --surface: #1e1a1b; --ink: #ece6e7; --muted: #a99fa1;
-  --rule: #342d2f; --accent: #e08a97; --accent-soft: #2c1f22; color-scheme: dark;
-}
-
-* { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body {
-  margin: 0; background: var(--bg); color: var(--ink);
-  font: 400 17px/1.6 var(--body);
-}
-a { color: var(--accent); text-underline-offset: 3px; }
-a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
-h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; }
-
-.wrap {
-  max-width: 1120px; margin: 0 auto; padding: 56px 24px 72px;
-  display: grid; grid-template-columns: 280px minmax(0, 1fr); gap: 64px;
-}
-
-/* Profile column */
-.profile { position: sticky; top: 40px; align-self: start; display: flex; flex-direction: column; gap: 20px; }
-.monogram {
-  width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center;
-  background: var(--accent); color: var(--bg); font: 600 26px var(--display); letter-spacing: 1px;
-}
-.profile h1 { font-size: 30px; line-height: 1.15; }
-.role { color: var(--muted); font-size: 15.5px; line-height: 1.5; margin: 6px 0 0; }
-.links { display: flex; flex-direction: column; gap: 6px; font-size: 15px; }
-nav ul { list-style: none; margin: 0; padding: 16px 0 0; border-top: 1px solid var(--rule); display: flex; flex-direction: column; gap: 4px; }
-nav a { color: var(--muted); text-decoration: none; font-size: 15px; display: block; padding: 2px 0; }
-nav a:hover { color: var(--accent); }
-
-/* Main column */
-main { display: flex; flex-direction: column; gap: 56px; min-width: 0; }
-section { display: flex; flex-direction: column; gap: 20px; scroll-margin-top: 32px; }
-h2 {
-  font-size: 15px; font-family: var(--body); font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--accent); padding-bottom: 10px; border-bottom: 1px solid var(--rule);
-}
-.lead { font-family: var(--display); font-size: 21px; line-height: 1.55; margin: 0; max-width: 66ch; }
-p { margin: 0; max-width: 68ch; }
-.interests { display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 0; list-style: none; }
-.interests li { background: var(--accent-soft); color: var(--ink); padding: 4px 12px; border-radius: 999px; font-size: 14.5px; }
-
-.entry { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 24px; }
-.when { color: var(--muted); font-size: 14.5px; font-variant-numeric: tabular-nums; padding-top: 3px; }
-.entry h3 { font-size: 20px; line-height: 1.3; }
-.where { color: var(--muted); font-size: 15.5px; margin-top: 2px; }
-.entry ul { margin: 10px 0 0; padding-left: 18px; display: flex; flex-direction: column; gap: 6px; max-width: 68ch; }
-.entries { display: flex; flex-direction: column; gap: 32px; }
-
-.specs {
-  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px;
-  background: var(--rule); border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; margin-top: 14px;
-}
-.spec { background: var(--surface); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; }
-.spec b { font: 600 22px var(--display); font-variant-numeric: tabular-nums; }
-.spec span { color: var(--muted); font-size: 13.5px; line-height: 1.35; }
-
-.patent {
-  border-left: 3px solid var(--accent); background: var(--surface); padding: 16px 20px; border-radius: 0 6px 6px 0;
-  display: flex; flex-direction: column; gap: 4px;
-}
-.patent b { font-family: var(--display); font-size: 19px; }
-.pubs { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 16px; }
-.pubs li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 24px; }
-.pubs .title { font-family: var(--display); font-size: 17.5px; }
-.pubs .venue { color: var(--muted); font-size: 15px; }
-.tag { display: inline-block; font-size: 12.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
-
-.edu { width: 100%; border-collapse: collapse; font-size: 15.5px; }
-.edu th, .edu td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
-.edu th { color: var(--muted); font-weight: 500; font-size: 13.5px; letter-spacing: .06em; text-transform: uppercase; }
-.edu td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
-.table-wrap { overflow-x: auto; }
-
-.skills { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
-.skills h3 { font-family: var(--body); font-size: 15px; font-weight: 600; margin-bottom: 4px; }
-.skills p { color: var(--muted); font-size: 15.5px; }
-
-footer { color: var(--muted); font-size: 14px; border-top: 1px solid var(--rule); padding-top: 20px; }
-
-@media (max-width: 860px) {
-  .wrap { grid-template-columns: 1fr; gap: 40px; padding-top: 36px; }
-  .profile { position: static; }
-  nav ul { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
-  .specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-}
-@media (max-width: 560px) {
-  body { font-size: 16px; }
-  .entry, .pubs li { grid-template-columns: 1fr; gap: 4px; }
-  .skills { grid-template-columns: 1fr; }
-  .lead { font-size: 19px; }
-}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="wrap">
-
-  <aside class="profile">
-    <div class="monogram" aria-hidden="true">NG</div>
-    <div>
-      <h1>Neelakshi Ganguly</h1>
-      <p class="role">PhD Scholar, Rehabilitation Robotics<br>IIT Madras · CMC Vellore · SCTIMST</p>
+  <aside class="sidebar">
+    <div class="side-inner">
+      <div class="avatar" aria-hidden="true">NG</div>
+      <div>
+        <p class="name">Neelakshi Ganguly</p>
+        <p class="tagline">PhD Scholar, Rehabilitation Robotics<br>IIT Madras · CMC Vellore · SCTIMST</p>
+      </div>
+      <nav class="side-block nav" aria-label="Pages">
+        <a href="index.html" aria-current="page">About</a>
+        <a href="research.html">Research</a>
+        <a href="publications.html">Publications</a>
+        <a href="teaching.html">Teaching</a>
+      </nav>
+      <div class="side-block ext">
+        <a href="https://www.linkedin.com/in/neelakshi-ganguly-1a842b307/"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4V21H3zM9.5 9.75h3.8v1.6h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5c0-1.2-.02-2.73-1.66-2.73-1.67 0-1.92 1.3-1.92 2.64V21h-4z"/></svg>LinkedIn</a>
+        <a href="https://github.com/Neelakshi5597"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>GitHub</a>
+      </div>
+      <p class="copy">© 2026 Neelakshi Ganguly</p>
     </div>
-    <div class="links">
-      <a href="https://www.linkedin.com/in/neelakshi-ganguly-1a842b307/">LinkedIn</a>
-      <span class="role" style="margin:0">R2D2 Lab, IIT Madras<br>BioRehab Lab, CMC Vellore</span>
-    </div>
-    <nav aria-label="Sections">
-      <ul>
-        <li><a href="#about">About</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#publications">Patent &amp; publications</a></li>
-        <li><a href="#awards">Awards</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#education">Education</a></li>
-        <li><a href="#skills">Skills</a></li>
-      </ul>
-    </nav>
   </aside>
+  <main class="content">
+    <p class="kicker">About</p>
+    <h1>Engineering rehabilitation robots that clinicians want to use</h1>
+    <hr class="rule">
+    <p class="lead">I am a PhD scholar in the joint programme of IIT Madras, Christian Medical College Vellore and SCTIMST, working in the R2D2 Lab at IIT Madras and the BioRehab Lab at CMC Vellore.</p>
+    <p>My doctoral work is <a href="research.html">ATOBOT</a>, a portable ankle–toe robot for foot rehabilitation after stroke. I have taken it from a clinical need to a working system: designing the sensing and control electronics, writing the embedded firmware, modelling its behaviour from experimental data, and evaluating it with 40 rehabilitation professionals. The invention is now protected by a granted Indian patent.</p>
+    <p>I trained as an electrical engineer (B.Tech) and a biomedical engineer (M.E., Jadavpur University). Before my PhD, I spent two years at Cognizant Technology Solutions in client-facing software delivery.</p>
+    <ul class="interests" aria-label="Research interests">
+      <li>Robotic neurorehabilitation</li><li>Human–robot interaction</li><li>Force sensing</li>
+      <li>Ankle biomechanics</li><li>Impedance, torque and current control</li>
+    </ul>
 
-  <main>
-    <section id="about">
-      <h2>About</h2>
-      <p class="lead">My PhD work, ATOBOT, is a portable ankle–toe robot for people recovering from stroke, now protected by a granted Indian patent.</p>
-      <p>I am an electrical and biomedical engineer in the joint PhD programme of IIT Madras, Christian Medical College Vellore and SCTIMST. My work spans sensing and control electronics, embedded firmware, data analysis and clinical evaluation. Before the PhD, I spent two years at Cognizant as an SAP consultant in client-facing delivery.</p>
-      <ul class="interests" aria-label="Research interests">
-        <li>Robotic neurorehabilitation</li>
-        <li>Human–robot interaction</li>
-        <li>Force sensing</li>
-        <li>Ankle biomechanics</li>
-        <li>Impedance, torque and current control</li>
-      </ul>
-    </section>
+    <h2>News</h2>
+    <ul class="dated">
+      <li><span class="d">Oct 2026</span><span>Indian Patent No. 605702 granted for ATOBOT</span></li>
+      <li><span class="d">Oct 2026</span><span>First Prize, E-Poster (PhD category), 16th Annual Research Day, CMC Vellore</span></li>
+      <li><span class="d">Sep 2026</span><span>Presented ATOBOT at ICNR 2026, the International Conference on Neurorehabilitation, Seoul</span></li>
+      <li><span class="d">Aug 2026</span><span>Best 3MT Presentation Award at BioMET ’26, VIT Vellore</span></li>
+      <li><span class="d">Apr 2026</span><span>First Prize, E-Poster (Overall), ITNRCON &amp; IFNRCON 2026, Mumbai</span></li>
+    </ul>
 
-    <section id="research">
-      <h2>Research</h2>
-      <div class="entries">
-        <article class="entry">
-          <div class="when">2022 – present</div>
-          <div>
-            <h3>ATOBOT: an ankle–toe rehabilitation robot for post-stroke foot function training</h3>
-            <div class="where">PhD research · IIT Madras / CMC Vellore / SCTIMST · Funded by Portescap India CSR</div>
-            <div class="specs" role="list">
-              <div class="spec" role="listitem"><b>2-DOF</b><span>underactuated, cable-driven</span></div>
-              <div class="spec" role="listitem"><b>24-bit</b><span>load-cell ADC (ADS1261)</span></div>
-              <div class="spec" role="listitem"><b>2400</b><span>encoder counts per revolution</span></div>
-              <div class="spec" role="listitem"><b>N = 40</b><span>clinicians in the evaluation</span></div>
-            </div>
-            <ul>
-              <li>Took ATOBOT from a clinical need through concept and early prototype to a working system.</li>
-              <li>Built the sensing and control platform: Teensy firmware, ADS1261 load-cell ADC, optical encoder feedback, and PID control with minimum-jerk trajectories.</li>
-              <li>Modelled gravity compensation from footplate sweep experiments in Python, using SciPy curve fitting and residual analysis.</li>
-              <li>Ran a clinician-centred evaluation with 40 rehabilitation professionals: protocol design, Mann–Whitney U tests with Bonferroni correction, and thematic analysis that identified five priority areas for future development.</li>
-              <li>Preparing an IRB submission for the next-stage usability study, and a PROSPERO systematic review on robot-assisted ankle neurorehabilitation in stroke.</li>
-            </ul>
-          </div>
-        </article>
-        <article class="entry">
-          <div class="when">2020 – 2022</div>
-          <div>
-            <h3>N400 ERP-based assessment of motor learning</h3>
-            <div class="where">Postgraduate thesis · Jadavpur University</div>
-            <ul>
-              <li>Proposed using N400 event-related potentials as a neurophysiological marker of motor-learning ability.</li>
-              <li>Developed a TSK Type-2 fuzzy classifier that groups subjects into high, medium and low learning adaptability.</li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
+    <h2>Experience</h2>
+    <ul class="dated">
+      <li><span class="d">2022 – now</span><span>PhD Scholar, Rehabilitation Robotics<span class="s">IIT Madras · CMC Vellore · SCTIMST</span></span></li>
+      <li><span class="d">2024 – now</span><span>Graduate Teaching Assistant<span class="s">Department of Bioengineering, CMC Vellore</span></span></li>
+      <li><span class="d">Jun – Jul 2022</span><span>Research Intern, Movement Disorder Laboratory<span class="s">Institute of Neurosciences Kolkata</span></span></li>
+      <li><span class="d">2020 – 2022</span><span>Senior SAP Consultant<span class="s">Cognizant Technology Solutions · Centrica SAP AR AMS project</span></span></li>
+    </ul>
 
-    <section id="publications">
-      <h2>Patent &amp; publications</h2>
-      <div class="patent">
-        <span class="tag">Patent granted</span>
-        <b>Indian Patent No. 605702</b>
-        <span class="where">Granted 12 October 2026 · ATOBOT ankle–toe rehabilitation robot</span>
-      </div>
-      <ul class="pubs">
-        <li>
-          <div class="when">Under review</div>
-          <div>
-            <div class="title">Design and Clinician-Centered Evaluation of ATOBOT: An Underactuated 2-DOF Ankle-Toe Rehabilitation Robot for Post-Stroke Foot Function Training</div>
-            <div class="venue"><strong>N. Ganguly</strong> et al. · Frontiers in Medical Technology · Manuscript ID 1964680</div>
-          </div>
-        </li>
-        <li>
-          <div class="when">2026</div>
-          <div>
-            <div class="title">An Underactuated 2-DOF Ankle–Toe Rehabilitation Robot for Post-Stroke Foot Function Training</div>
-            <div class="venue">Poster · ICNR 2026, International Conference on Neurorehabilitation, Seoul</div>
-          </div>
-        </li>
-        <li>
-          <div class="when">2020</div>
-          <div>
-            <div class="title">Unidentified Input Observer: Comparative Study through Block Pulse Function and Hybrid Function</div>
-            <div class="venue">Co-author · CIPR 2019, IIEST Shibpur · Springer Singapore</div>
-          </div>
-        </li>
-        <li>
-          <div class="when">2019</div>
-          <div>
-            <div class="title">A Computational Approach to Broad Cardiac Disorders in the Light of Ayurveda</div>
-            <div class="venue">Co-author · 10th FOSET Academic Meet, NSHM Knowledge Campus, Kolkata</div>
-          </div>
-        </li>
-        <li>
-          <div class="when">2018</div>
-          <div>
-            <div class="title">Solving Stochastic Differential Equations Using Hybrid Functions</div>
-            <div class="venue">Co-author · 12th International Conference MSAST</div>
-          </div>
-        </li>
-      </ul>
-    </section>
-
-    <section id="awards">
-      <h2>Awards</h2>
-      <ul class="pubs">
-        <li><div class="when">Oct 2026</div><div><div class="title">First Prize, E-Poster (PhD category)</div><div class="venue">16th Annual Research Day, CMC Vellore</div></div></li>
-        <li><div class="when">Aug 2026</div><div><div class="title">Best 3MT Presentation Award</div><div class="venue">BioMET ’26, VIT Vellore</div></div></li>
-        <li><div class="when">Apr 2026</div><div><div class="title">First Prize, E-Poster (Overall)</div><div class="venue">ITNRCON &amp; IFNRCON 2026, Mumbai</div></div></li>
-        <li><div class="when">Oct 2025</div><div><div class="title">Second Prize, E-Poster (PhD category)</div><div class="venue">15th Annual Research Day, CMC Vellore</div></div></li>
-        <li><div class="when">2021</div><div><div class="title">CognizantCheers Award and GenC hiring-jury appreciation</div><div class="venue">Cognizant Technology Solutions</div></div></li>
-      </ul>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <div class="entries">
-        <article class="entry">
-          <div class="when">2024 – present</div>
-          <div>
-            <h3>Graduate Teaching Assistant</h3>
-            <div class="where">Department of Bioengineering, CMC Vellore</div>
-            <ul><li>Six semesters across Transducers and Instrumentation, Bioelectricity, and Advanced Linear Algebra and Data Analysis.</li></ul>
-          </div>
-        </article>
-        <article class="entry">
-          <div class="when">Jun – Jul 2022</div>
-          <div>
-            <h3>Research Intern</h3>
-            <div class="where">Movement Disorder Laboratory, Institute of Neurosciences Kolkata</div>
-          </div>
-        </article>
-        <article class="entry">
-          <div class="when">2020 – 2022</div>
-          <div>
-            <h3>Senior SAP Consultant</h3>
-            <div class="where">Cognizant Technology Solutions · Centrica SAP AR AMS project</div>
-            <ul><li>Client-facing delivery on SAP ABAP, CRM and IS-U, covering client interaction, end-to-end testing and production deployment.</li></ul>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <div class="table-wrap">
-        <table class="edu">
-          <thead><tr><th scope="col">Degree</th><th scope="col">Institution</th><th scope="col">Score</th><th scope="col">Year</th></tr></thead>
-          <tbody>
-            <tr><td>PhD, Rehabilitation Robotics</td><td>IIT Madras – CMC Vellore – SCTIMST</td><td class="num">Ongoing</td><td class="num">2022 –</td></tr>
-            <tr><td>M.E., Biomedical Engineering</td><td>Jadavpur University</td><td class="num">9.05 CGPA</td><td class="num">2022</td></tr>
-            <tr><td>B.Tech, Electrical Engineering</td><td>St. Thomas’ College of Engineering (MAKAUT)</td><td class="num">8.71 CGPA</td><td class="num">2020</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="skills">
-        <div><h3>Hardware and embedded</h3><p>Teensy firmware in C/C++, ADS1261 ADC over SPI, load-cell calibration, optical encoders, ESCON motor drivers, PID control</p></div>
-        <div><h3>Analysis and modelling</h3><p>Python (NumPy, SciPy, Matplotlib), MATLAB, curve fitting, EEG/ERP signal processing</p></div>
-        <div><h3>Clinical research</h3><p>Study protocols and IRB preparation, mixed-methods analysis, systematic review registration</p></div>
-        <div><h3>Communication</h3><p>Patent and journal writing, award-winning presentations; English, Bengali and Hindi (IELTS 7)</p></div>
-      </div>
-    </section>
-
-    <footer>Neelakshi Ganguly · Updated November 2026</footer>
+    <h2>Education</h2>
+    <ul class="dated">
+      <li><span class="d">2022 – now</span><span>PhD, Rehabilitation Robotics / Neurorehabilitation<span class="s">IIT Madras – CMC Vellore – SCTIMST (Three-Institute Programme)</span></span></li>
+      <li><span class="d">2020 – 2022</span><span>M.E., Biomedical Engineering · CGPA 9.05<span class="s">Jadavpur University, Kolkata</span></span></li>
+      <li><span class="d">2020</span><span>B.Tech, Electrical Engineering · CGPA 8.71<span class="s">St. Thomas’ College of Engineering (MAKAUT), Kolkata</span></span></li>
+    </ul>
   </main>
-</div>
 </body>
 </html>
