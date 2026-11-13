@@ -69,7 +69,7 @@ p { margin: 0 0 16px; }
 .interests li { background: var(--accent-soft); padding: 3px 12px; border-radius: 999px; font-size: 14.5px; }
 
 /* Research */
-.project { padding: 4px 0 8px; }
+.project { padding: 4px 0 8px; scroll-margin-top: 32px; }
 .project + .project { margin-top: 36px; padding-top: 32px; border-top: 1px solid var(--rule); }
 .facts {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin: 18px 0 20px;
